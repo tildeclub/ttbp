@@ -224,7 +224,7 @@ def check_init():
 
     print("\n\n")
     if os.path.exists(os.path.join(os.path.expanduser("~"),".ttbp")):
-        if config.USER == "endorphant":
+        if config.USER == "benharri":
             print("hey boss! :D\n")
         else:
             print("{greeting}, {user}".format(greeting=chatter.say("greet"),
@@ -302,8 +302,7 @@ def init():
     input("""
 
 you're all good to go, {friend}! if you have any questions about how things
-work here, check out the documentation from the main menu, ask in IRC, or
-drop ~endorphant a line!
+work here, check out the documentation from the main menu, or ask in IRC!
 
 hit <enter> to continue.
 """.format(friend=chatter.say("friend")))
@@ -327,7 +326,7 @@ def gen_header():
     </head>
     <body>
         <div id=\"meta\">
-            <h1><a href=\"index.html#\">~"""+config.USER+"""</a>@<a href=\"/~endorphant/ttbp\">TTBP</a></h1>
+            <h1><a href=\"index.html#\">~"""+config.USER+"""</a>@<a href=\"/wiki/ttbp.html\">TTBP</a></h1>
         </div>
 
         <!---put your custom html here-->
@@ -581,7 +580,7 @@ def main_menu():
         redraw("now changing your settings. press <ctrl-c> if you didn't mean to do this.")
         core.load(setup()) # reload settings to core
     elif choice == '7':
-        redraw("you're about to send mail to ~endorphant about ttbp")
+        redraw("you're about to send mail to the admins about ttbp")
         feedback_menu()
     elif choice == '8':
         redraw()
@@ -611,7 +610,7 @@ def feedback_menu():
     if choice in ['0', '1', '2', '3']:
         cat = SUBJECTS[int(choice)]
         entered = input("""
-composing a {mail_category} to ~endorphant.
+composing a {mail_category} to the admins.
 
 press <enter> to open an external text editor. mail will be sent once you save and quit.
 
@@ -806,7 +805,7 @@ def view_neighbors(users, prompt, page=0):
         sortedUsers.append(user[0])
         userIndex.append(user[2])
 
-    ans = menu_handler(sortedUsers, "pick a townie to browse their feels, or type 'q' to go home: ", 15, page, SETTINGS.get("rainbows", False), prompt)
+    ans = menu_handler(sortedUsers, "pick a user to browse their feels, or type 'q' to go home: ", 15, page, SETTINGS.get("rainbows", False), prompt)
 
     if ans is not False:
         (page, choice) = ans
@@ -1286,7 +1285,7 @@ def send_feedback(entered, subject="none"):
         id = "#"+util.genID(3)
         mail = MIMEText(message)
         mail['To'] = config.FEEDBOX
-        mail['From'] = config.USER+"@tilde.town"
+        mail['From'] = config.USER+"@tilde.club"
         mail['Subject'] = " ".join(["[ttbp]", subject, id])
         m = os.popen("/usr/sbin/sendmail -t -oi", 'w')
         m.write(mail.as_string())
@@ -1425,11 +1424,11 @@ def subscription_manager(subs, intro=""):
 
     if choice is not False:
         if choice == 0:
-            prompt = "list of townies recording feels:"
+            prompt = "list of users recording feels:"
             redraw(prompt)
             subs = subscribe_handler(subs, prompt)
         elif choice == 1:
-            prompt = "list of townies you're subscribed to:"
+            prompt = "list of users you're subscribed to:"
             redraw(prompt)
             subs = unsubscribe_handler(subs, prompt)
     else:
@@ -1446,7 +1445,7 @@ def unsubscribe_handler(subs, prompt, page=0):
 
     subs.sort()
 
-    ans = menu_handler(subs, "pick a pal to unsubscribe (or 'q' to cancel): ", 15, page, SETTINGS.get("rainbows", False), "list of townies recording feels:")
+    ans = menu_handler(subs, "pick a pal to unsubscribe (or 'q' to cancel): ", 15, page, SETTINGS.get("rainbows", False), "list of users recording feels:")
 
     if ans is not False:
         (page,choice) = ans
@@ -1473,7 +1472,7 @@ def subscribe_handler(subs, prompt, page=0):
 
     candidates.sort()
 
-    ans = menu_handler(candidates, "pick a townie to add to your subscriptions (or 'q' to cancel): ", 15, page, SETTINGS.get("rainbows", False), "list of townies recording feels:")
+    ans = menu_handler(candidates, "pick a user to add to your subscriptions (or 'q' to cancel): ", 15, page, SETTINGS.get("rainbows", False), "list of users recording feels:")
 
     if ans is not False:
         (page, choice) = ans
@@ -1659,7 +1658,7 @@ if yes, your feels will be published to a directory of your choice in
 your public_html. i'll confirm the location of that directory in a
 moment.
 
-if not, your feels will only be readable from within the tilde.town
+if not, your feels will only be readable from within the tilde.club
 network. if you already have a publishing directory, i'll remove it for
 you (don't worry, your written entries will still be saved!)
 
@@ -1842,7 +1841,7 @@ def update_user_version():
             print("""
     * thanks to help from ~vilmibm, ttbp now supports publishing to gopher!
     * if you enable gopher publishing, feels will automatically publish to
-        gopher://tilde.town/1/~"""+config.USER+"""/feels
+        gopher://tilde.club/1/~"""+config.USER+"""/feels
 
             """)
             SETTINGS.update({'gopher': gopher.select_gopher()})
@@ -1877,7 +1876,7 @@ def update_user_version():
 }""")
 
     print("""
-you're all good to go, """+chatter.say("friend")+"""! please contact ~endorphant if
+you're all good to go, """+chatter.say("friend")+"""! please contact the admins if
 something strange happened to you during this update.
 """)
 

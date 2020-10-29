@@ -20,7 +20,8 @@ setup(
         'inflect',
         'mistune',
         'colorama',
-        'six'
+        'six',
+        'feedgen',
     ],
     include_package_data = True,
     entry_points = {
